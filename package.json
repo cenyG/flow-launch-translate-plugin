@@ -1,0 +1,6 @@
+{
+  "name": "flow-launcher-translate-plugin",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
