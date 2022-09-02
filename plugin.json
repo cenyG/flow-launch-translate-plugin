@@ -8,5 +8,5 @@
   "Language": "executable",
   "Website": "https://github.com/cenyG/flow-launch-translate-plugin",
   "ExecuteFileName": "node.bat",
-  "IcoPath": "Images\\app.png"
+  "IcoPath": "Images\\liber_icon.png"
 }
