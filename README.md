@@ -12,4 +12,3 @@ tr <your text>
 This plugin uses [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) opensource project for translation.   
 
 And this free hosted instance of LibreTranslate - [libretranslate.de](libretranslate.de)
-
