@@ -31,7 +31,7 @@ jobs:
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
-          files: 'Flow.Launcher.Plugin.HelloWorldNodeJS.zip'
+          files: 'Flow.Launcher.Plugin.Translate.zip'
           tag_name: "v${{steps.version.outputs.prop}}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
