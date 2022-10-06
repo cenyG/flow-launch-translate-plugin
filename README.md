@@ -3,10 +3,13 @@
 usage:
 ```bash
 # set your from -> to languages
-tr _set <from> <to>
+tr :set <from> <to>
 
 # translate text
 tr <your text>
+
+# translate text in reverse: to -> from
+tr r <your text>
 ```
 
 This plugin uses [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) opensource project for translation.   
