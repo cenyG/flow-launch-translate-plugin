@@ -3,15 +3,13 @@
 usage:
 ```bash
 # set your from -> to languages
-tr :set <from> <to>
+tt :set <from> <to>
 
 # translate text
-tr <your text>
+tt <your text>
 
 # translate text in reverse: to -> from
-tr r <your text>
+tt r <your text>
 ```
 
-This plugin uses [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) opensource project for translation.   
-
-And this free hosted instance of LibreTranslate - [libretranslate.de](libretranslate.de)
+This plugin uses Google Translate wothout API key. - [translate.google.com](https://translate.google.com)

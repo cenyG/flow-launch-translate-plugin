@@ -2,12 +2,13 @@ const fs = require('fs')
 const translate = require('@vitalets/google-translate-api')
 
 const CONFIG_FILE_PATH = `${process.env.plugin_dir}/language_config`
+const ICON_PATH = 'Images\\google_tr_icon.png'
 const DEFAULT_RESPONSE = JSON.stringify({
     result: [
         {
             Title: 'Translate',
             Subtitle: 'type text to translate or set `from`->`to` languages: `:set en de`',
-            IcoPath: 'Images\\liber_icon.png',
+            IcoPath: ICON_PATH,
         },
     ],
 })
@@ -29,7 +30,7 @@ Promise.resolve().then(async () => {
                     {
                         Title: 'Error',
                         Subtitle: e.message || '',
-                        IcoPath: 'Images\\google_tr_icon.png',
+                        IcoPath: ICON_PATH,
                     },
                 ],
             })
@@ -56,7 +57,7 @@ async function main(method, params) {
                                 method: 'setLanguage',
                                 parameters: [from, to],
                             },
-                            IcoPath: 'Images\\liber_icon.png',
+                            IcoPath: ICON_PATH,
                         },
                     ],
                 })
@@ -68,7 +69,7 @@ async function main(method, params) {
                         {
                             Title: 'Translate',
                             Subtitle: '`From` and `To` languages should be words of length 2 `en`,`de` etc.',
-                            IcoPath: 'Images\\liber_icon.png',
+                            IcoPath: ICON_PATH,
                         },
                     ],
                 })
@@ -96,7 +97,7 @@ async function main(method, params) {
                         {
                             Title: res.text,
                             Subtitle: `${from} -> ${to} parameters`,
-                            IcoPath: 'Images\\liber_icon.png',
+                            IcoPath: ICON_PATH,
                         },
                     ],
                 })
