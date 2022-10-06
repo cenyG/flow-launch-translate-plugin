@@ -1,12 +1,12 @@
 const fs = require('fs')
-const axios = require('axios')
+const translate = require('@vitalets/google-translate-api')
 
 const CONFIG_FILE_PATH = `${process.env.plugin_dir}/language_config`
 const DEFAULT_RESPONSE = JSON.stringify({
     result: [
         {
             Title: 'Translate',
-            Subtitle: 'type text to translate or set `from`->`to` languages: `_set en de`',
+            Subtitle: 'type text to translate or set `from`->`to` languages: `:set en de`',
             IcoPath: 'Images\\liber_icon.png',
         },
     ],
@@ -17,18 +17,36 @@ let { method, parameters: params } = JSON.parse(process.argv[2])
 if (!fs.existsSync(CONFIG_FILE_PATH)) {
     fs.writeFileSync(CONFIG_FILE_PATH, `en,de`)
 }
-const [from, to] = fs.readFileSync(CONFIG_FILE_PATH).toString('utf8').trim().split(',')
+let [from, to] = fs.readFileSync(CONFIG_FILE_PATH).toString('utf8').trim().split(',')
 
 Promise.resolve().then(async () => {
+    try {
+        await main(method, params)
+    } catch (e) {
+        console.log(
+            JSON.stringify({
+                result: [
+                    {
+                        Title: 'Error',
+                        Subtitle: e.message || '',
+                        IcoPath: 'Images\\google_tr_icon.png',
+                    },
+                ],
+            })
+        )
+    }
+})
+
+async function main(method, params) {
     if (method === 'query' && (params.length === 0 || (params.length === 1 && !params[0]))) {
-        console.log(DEFAULT_RESPONSE)
-    } else if (method === 'query' && params.length > 0 && params[0].startsWith('_set')) {
+        return console.log(DEFAULT_RESPONSE)
+    } else if (method === 'query' && params.length > 0 && params[0].startsWith(':set')) {
         const split = params[0].trim().split(' ')
 
         if (split.length === 3 && split[1].length === 2 && split[2].length === 2) {
             const from = split[1]
             const to = split[2]
-            console.log(
+            return console.log(
                 JSON.stringify({
                     result: [
                         {
@@ -44,7 +62,7 @@ Promise.resolve().then(async () => {
                 })
             )
         } else {
-            console.log(
+            return console.log(
                 JSON.stringify({
                     result: [
                         {
@@ -57,18 +75,26 @@ Promise.resolve().then(async () => {
             )
         }
     } else if (method === 'setLanguage') {
-        fs.writeFileSync(CONFIG_FILE_PATH, params.join(','))
+        return fs.writeFileSync(CONFIG_FILE_PATH, params.join(','))
     } else if (method === 'query' && params.length !== 0) {
-        const text = params.join(' ').trim()
+        let text = params.join(' ').trim()
+        const isReverse = text.startsWith('r ')
+
+        if (isReverse && text.length > 2) {
+            text = text.substring(2)
+            const tmp = from
+            from = to
+            to = tmp
+        }
 
         if (text) {
-            const res = await makeRequest(params.join(' '), from, to)
+            const res = await translate(text, { to })
 
-            console.log(
+            return console.log(
                 JSON.stringify({
                     result: [
                         {
-                            Title: res,
+                            Title: res.text,
                             Subtitle: `${from} -> ${to} parameters`,
                             IcoPath: 'Images\\liber_icon.png',
                         },
@@ -76,28 +102,7 @@ Promise.resolve().then(async () => {
                 })
             )
         } else {
-            console.log(DEFAULT_RESPONSE)
+            return console.log(DEFAULT_RESPONSE)
         }
-    }
-})
-
-async function makeRequest(text, from = 'auto', to) {
-    try {
-        const res = await axios.post(
-            'https://libretranslate.de/translate',
-            {
-                q: text,
-                source: from,
-                target: to,
-                format: 'text',
-            },
-            {
-                headers: { 'Content-Type': 'application/json' },
-            }
-        )
-
-        return res.data.translatedText
-    } catch (e) {
-        return e?.response?.data?.error || e?.message || e?.response?.statusText || e?.code || 'Request Error'
     }
 }
