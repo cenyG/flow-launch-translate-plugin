@@ -1,6 +1,9 @@
-#### [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher) plugin for text translation.
+### [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher) plugin for text translation.
 
-usage:
+#### !!! For correct working of this plugin you will need [Node.js](https://nodejs.org/en/) installed on your computer.
+#### !!! You can download and install it from [official site](https://nodejs.org/en/).
+
+Usage:
 ```bash
 # set your from -> to languages
 tt :set <from> <to>
