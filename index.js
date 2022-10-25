@@ -1,5 +1,6 @@
-const fs = require('fs')
-const translate = require('@vitalets/google-translate-api')
+import fs from 'fs'
+import translate from '@vitalets/google-translate-api'
+import clipboard from 'clipboardy';
 
 const CONFIG_FILE_PATH = `${process.env.plugin_dir}/language_config`
 const ICON_PATH = 'Images\\google_tr_icon.png'
@@ -77,6 +78,8 @@ async function main(method, params) {
         }
     } else if (method === 'setLanguage') {
         return fs.writeFileSync(CONFIG_FILE_PATH, params.join(','))
+    } else if (method === 'copy') {
+        clipboard.writeSync(params.join());
     } else if (method === 'query' && params.length !== 0) {
         let text = params.join(' ').trim()
         const isReverse = text.startsWith('r ')
@@ -89,7 +92,7 @@ async function main(method, params) {
         }
 
         if (text) {
-            const res = await translate(text, { to })
+            const res = await translate(text.trim(), { to })
 
             return console.log(
                 JSON.stringify({
@@ -98,6 +101,11 @@ async function main(method, params) {
                             Title: res.text,
                             Subtitle: `${from} -> ${to} parameters`,
                             IcoPath: ICON_PATH,
+                            JsonRPCAction:{
+                                method: "copy",
+                                parameters: [res.text],
+                                dontHideAfterAction: false
+                           }
                         },
                     ],
                 })
