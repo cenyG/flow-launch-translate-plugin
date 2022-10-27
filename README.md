@@ -14,4 +14,5 @@ tt <your text>
 tt r <your text>
 ```
 
-This plugin uses Google Translate without API key. - [translate.google.com](https://translate.google.com)
+This plugin uses Google Translate without API key. - [translate.google.com](https://translate.google.com)   
+You can find languages code [here](https://developers.google.com/admin-sdk/directory/v1/languages).
