@@ -45,7 +45,7 @@ async function main(method, params) {
     } else if (method === 'query' && params.length > 0 && params[0].startsWith(':set')) {
         const split = params[0].trim().split(' ')
 
-        if (split.length === 3 && split[1].length === 2 && split[2].length === 2) {
+        if (split.length === 3 && split[1].length >= 2 && split[2].length >= 2) {
             const from = split[1]
             const to = split[2]
             return console.log(
