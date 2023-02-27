@@ -4,9 +4,9 @@
         "Name": "Translation",
         "Description": "Node.js Translation plugin with Google Translate",
         "Author": "cenygg",
-        "Version": "1.0.0",
-        "Language": "executable",
+        "Version": "1.0.1",
+        "Language": "javascript",
         "Website": "https://github.com/cenyG/flow-launch-translate-plugin",
-        "ExecuteFileName": "node.bat",
+        "ExecuteFileName": "./src/index.js",
         "IcoPath": "https://cdn.jsdelivr.net/gh/cenyG/flow-launch-translate-plugin@main/Images/google_tr_icon.png"
 }
