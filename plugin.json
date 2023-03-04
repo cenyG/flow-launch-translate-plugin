@@ -4,7 +4,7 @@
         "Name": "Translation",
         "Description": "Node.js Translation plugin with Google Translate",
         "Author": "cenygg",
-        "Version": "1.0.1",
+        "Version": "1.0.2",
         "Language": "javascript",
         "Website": "https://github.com/cenyG/flow-launch-translate-plugin",
         "ExecuteFileName": "./src/index.js",

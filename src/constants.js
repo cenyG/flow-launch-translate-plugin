@@ -1,4 +1,4 @@
-export const CONFIG_FILE_PATH = `${process.env.plugin_dir}/language_config`
+export const CONFIG_FILE_PATH = `config\\language_config`
 export const ICON_PATH = 'Images\\google_tr_icon.png'
 export const DEFAULT_RESULT = [
     {
